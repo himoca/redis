@@ -3696,4 +3696,19 @@ int main(int argc, char **argv) {
     return 0;
 }
 
+void disconnectAllClients(void) {
+    listNode *ln;
+    listIter li;
+
+    listRewind(server.clients,&li);
+    while((ln = listNext(&li))) {
+        redisClient *c = listNodeValue(ln);
+
+        if (c->flags & REDIS_MASTER) {
+          continue;
+        }
+
+        freeClient(c);
+    }
+}
 /* The End */

@@ -1144,6 +1144,8 @@ void readSyncBulkPayload(aeEventLoop *el, int fd, void *privdata, int mask) {
                 exit(1);
             }
         }
+
+        disconnectAllClients();
     }
 
     return;
